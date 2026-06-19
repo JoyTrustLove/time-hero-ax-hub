@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>김영웅 자료 허브 — 사내 AI 도구 모음</title>
+<meta name="description" content="타임교육 김영웅이 만든 사내 AI 도구·가이드를 한곳에 모은 개인 페이지(비공식). AI 클리셰 지우개 외.">
+<link rel="icon" href="assets/img/logo-wordmark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<!-- S0 네비 -->
+<header class="nav">
+  <div class="container" style="display:flex;align-items:center;justify-content:space-between;width:100%;">
+    <a class="is-button" href="index.html" aria-label="김영웅 자료 허브 홈">◆ 김영웅 자료 허브</a>
+    <nav>
+      <button class="nav__toggle" aria-label="메뉴 열기" aria-expanded="false" aria-controls="navMenu">☰</button>
+      <div class="nav__menu" id="navMenu">
+        <a href="index.html#tools">도구</a>
+        <a href="guide.html">가이드</a>
+        <a href="about.html">소개</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- S1 히어로 -->
+  <section>
+    <div class="container">
+      <div class="hero">
+        <div class="hero__copy">
+          <span class="badge badge--primary"><span class="badge__icon">●</span>연계 · Time AX Hub · 비공식</span>
+          <h1 class="display" style="margin-top:14px;">AI가 써준 글, 사람이 쓴 글처럼.</h1>
+          <p style="color:var(--sub);margin:0 0 6px;">복사해서 붙여넣기만 하면 끝. 보고서·메일·기획서를 자연스럽게 다듬는 도구와 가이드를 한곳에 모았어요.</p>
+          <p style="font-size:var(--fs-sm);color:var(--sub);margin:0;">타임교육 <b style="color:var(--ink);">김영웅</b>이 직접 만들어 써 보고, 잘 되는 것만 공유합니다.</p>
+          <div class="hero__cta">
+            <a class="btn btn--primary" href="tools/cliche-eraser.html">AI 클리셰 지우개 써보기 ▷</a>
+            <a class="btn btn--ghost" href="guide.html">처음이세요? 가이드 보기</a>
+          </div>
+        </div>
+        <div class="hero__art">
+          <div class="flow" role="img" aria-label="고치기 전 글이 AI 클리셰 지우개를 거쳐 고친 후 글이 되는 흐름">
+            <div class="cell"><span class="glyph">✗</span><b>고치기 전</b><span style="color:var(--sub);font-size:var(--fs-xs);">AI 티 나는 글</span></div>
+            <span class="arrow" aria-hidden="true">→</span>
+            <div class="cell cell--tool"><span class="glyph">◆</span><b>AI 클리셰 지우개</b><span style="color:var(--sub);font-size:var(--fs-xs);">붙여넣기 한 번</span></div>
+            <span class="arrow" aria-hidden="true">→</span>
+            <div class="cell"><span class="glyph">✓</span><b>고친 후</b><span style="color:var(--sub);font-size:var(--fs-xs);">사람이 쓴 글</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- S2 정체성 -->
+  <section style="padding-block:0;">
+    <div class="container">
+      <p class="identity">여기는 김영웅이 사내 Time AX Hub에 올린 글을 한곳에 모아 자세히 설명한 <b>개인 페이지</b>예요. 회사 공식 사이트는 아닙니다.</p>
+    </div>
+  </section>
+
+  <!-- S3 분류 탭(비클릭 라벨) + S4 카드 -->
+  <section id="tools">
+    <div class="container">
+      <h2 class="section-title">도구 모음</h2>
+      <div class="tabs" style="margin-bottom:var(--sp-5);">
+        <span class="tabs-label">분류:</span>
+        <span class="tab tab--label" aria-current="true"><span class="glyph">■</span> 전체</span>
+        <span class="tab tab--label"><span class="glyph">●</span> 글 다듬기</span>
+        <span class="tab tab--label"><span class="glyph">■</span> 회의</span>
+        <span class="tab tab--label"><span class="glyph">▲</span> 점검</span>
+      </div>
+
+      <div class="grid">
+        <!-- 카드 1: 대표·완성 -->
+        <article class="card card--feature">
+          <div class="card-top">
+            <span class="badge badge--primary"><span class="badge__icon">●</span>글 다듬기</span>
+            <span class="feature-tag"><span class="glyph">★</span> 대표</span>
+          </div>
+          <div class="icon-tile" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 20l4-1 9-9-3-3-9 9-1 4z"/><path d="M14 6l3 3"/></svg>
+          </div>
+          <h3>AI 클리셰 지우개</h3>
+          <p class="summary">Gemini로 쓴 글의 'AI가 쓴 티'(이모지·굵은 글씨·긴 줄표·딱딱한 말투)를 빼 사람 말투로 다듬어 줍니다.</p>
+          <div class="card-top">
+            <span class="badge badge--success"><span class="badge__icon">●</span>완성</span>
+            <a class="btn btn--primary" href="tools/cliche-eraser.html">자세히 보기 ▷</a>
+          </div>
+        </article>
+
+        <!-- 카드 2: 준비중 -->
+        <article class="card card--soon">
+          <div class="card-top">
+            <span class="badge badge--primary"><span class="badge__icon">■</span>회의</span>
+            <span class="badge badge--warn"><span class="badge__icon">◐</span>준비중</span>
+          </div>
+          <div class="icon-tile icon-tile--secondary" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 5h16v11H7l-3 3z"/><path d="M8 9h8M8 12h5"/></svg>
+          </div>
+          <h3>회의록 정리기</h3>
+          <p class="summary">회의 녹취·메모를 핵심 결정과 할 일로 깔끔하게 정리해 주는 도구입니다.</p>
+          <span class="btn btn--disabled" aria-disabled="true">곧 공개 (잠김)</span>
+          <p class="soon-note">아직 준비 중이에요 (눌러도 열리지 않습니다).</p>
+        </article>
+
+        <!-- 카드 3: 준비중 -->
+        <article class="card card--soon">
+          <div class="card-top">
+            <span class="badge badge--primary"><span class="badge__icon">▲</span>점검</span>
+            <span class="badge badge--warn"><span class="badge__icon">◐</span>준비중</span>
+          </div>
+          <div class="icon-tile icon-tile--secondary" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg>
+          </div>
+          <h3>바둑 복기</h3>
+          <p class="summary">AI가 내놓은 답을 바둑 복기처럼 한 수씩 되짚어 더 나은 답으로 다듬는 점검 도구입니다.</p>
+          <span class="btn btn--disabled" aria-disabled="true">곧 공개 (잠김)</span>
+          <p class="soon-note">아직 준비 중이에요 (눌러도 열리지 않습니다).</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- S5 구제띠 -->
+  <section style="padding-top:0;">
+    <div class="container">
+      <div class="rescue">
+        <h2>AI 처음이세요? 1분이면 됩니다.</h2>
+        <p style="color:var(--sub);margin:0;">설치도, 코딩도 없어요. 아래 3가지만 하면 됩니다.</p>
+        <div class="steps-inline">
+          <div class="s"><span class="num">1</span><a href="https://gemini.google.com/app" target="_blank" rel="noopener">Gemini 열기 ↗</a> <span style="color:var(--sub);font-size:var(--fs-sm);">(=구글이 만든 AI 챗봇)</span></div>
+          <div class="s"><span class="num">2</span>지시문을 복사해 붙여넣기</div>
+          <div class="s"><span class="num">3</span>다듬을 글을 붙여넣기</div>
+        </div>
+        <a class="btn btn--primary" href="guide.html">1분 따라하기 ▷</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- S6 신뢰띠 -->
+  <section style="padding-top:0;">
+    <div class="container">
+      <div class="trust">
+        <div class="who">
+          <span class="glyph" aria-hidden="true">◆</span> <b>김영웅</b> · 타임교육 재직<br>
+          <span class="meta">직접 만들어 써 보고, 잘 되는 것만 올립니다.</span>
+        </div>
+        <div style="display:flex;gap:var(--sp-4);align-items:center;flex-wrap:wrap;">
+          <span class="meta">최종 업데이트 2026-06-19</span>
+          <a class="btn btn--ghost" href="about.html">소개 더 보기</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- S7 푸터 (거버넌스 템플릿) -->
+<footer>
+  <div class="container">
+    <p><b>◆ 김영웅 자료 허브</b></p>
+    <p class="gov">도구: AI 클리셰 지우개 · 회의록 정리기(곧) · 바둑 복기(곧)</p>
+    <p class="gov">
+      이 페이지는 김영웅이 사내 Time AX Hub 자료를 모아 설명한 개인 페이지입니다.<br>
+      회사 공식 사이트가 아니며(unofficial), 회사를 대표하지 않습니다.<br>
+      타임교육 공식 로고를 사용하지 않습니다. 회사 기밀은 포함하지 않습니다.
+    </p>
+    <p class="gov">문의는 사내 채널로 부탁드립니다. · 최종 업데이트: 2026-06-19</p>
+    <p class="gov">© 2026 김영웅 (가이드 문서의 서술·디자인에 한함)</p>
+  </div>
+</footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
