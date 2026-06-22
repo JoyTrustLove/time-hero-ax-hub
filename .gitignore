@@ -7,3 +7,4 @@ _*
 *.md
 !README.md
 !downloads/*.md
+!axhub-posts/*.md
