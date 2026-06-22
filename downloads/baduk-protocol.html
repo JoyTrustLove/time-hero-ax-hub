@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI 복기 프로토콜 — 첨부용 지침서</title>
+<style>
+  :root{ --blue:#2563EB; --deep:#1D4ED8; --soft:#EFF4FF; --ink:#0F172A; --sub:#475569; --line:#E2E8F0; --bg:#F5F8FF; }
+  *{box-sizing:border-box}
+  body{ margin:0; padding:28px 16px; background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','맑은 고딕',sans-serif; line-height:1.7; }
+  .wrap{ max-width:760px; margin:0 auto; background:#fff; border:1px solid var(--line); border-radius:16px; padding:30px 32px; }
+  h1{ font-size:24px; margin:0 0 6px; }
+  h2{ font-size:19px; color:var(--deep); margin:26px 0 10px; padding-top:14px; border-top:1px solid var(--line); }
+  h3{ font-size:15px; color:var(--deep); margin:16px 0 6px; }
+  p,li{ font-size:15px; }
+  .lead{ color:var(--sub); }
+  .how{ background:var(--soft); border:1px solid #C7DBFB; border-radius:12px; padding:16px 18px; margin:16px 0; }
+  .how b{ color:var(--deep); }
+  code{ background:#F1F5FB; border:1px solid var(--line); border-radius:5px; padding:1px 6px; font-size:13.5px; }
+  .quote{ color:var(--sub); font-style:italic; border-left:3px solid var(--blue); padding-left:12px; margin:10px 0; }
+  ol,ul{ padding-left:20px; }
+  li{ margin:5px 0; }
+  .tag{ display:inline-block; background:var(--blue); color:#fff; font-size:12px; font-weight:700; border-radius:20px; padding:3px 12px; }
+  .small{ font-size:13px; color:var(--sub); }
+  .key{ background:var(--soft); border-radius:8px; padding:2px 8px; font-weight:600; color:var(--deep); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <span class="tag">첨부용 지침서</span>
+  <h1>AI 복기 프로토콜 (v1)</h1>
+  <p class="lead">AI가 준 답을 바둑 복기처럼 되짚어 한 단계 끌어올리는 방법</p>
+
+  <div class="how">
+    <b>이 파일을 쓰는 법</b><br>
+    AI 챗봇(Gemini·ChatGPT·Claude 등)에 <b>이 파일을 첨부</b>한 뒤, 이렇게 말하세요:
+    <ul style="margin:8px 0 0;">
+      <li>"이 지침의 <span class="key">속기</span>로 [주제]를 분석해줘"</li>
+      <li>"이 지침의 <span class="key">정석</span>으로 [주제]를 분석해줘"</li>
+      <li>"이 지침의 <span class="key">끝판왕</span>으로 [주제]를 분석해줘"</li>
+    </ul>
+    <p class="small" style="margin:8px 0 0;">→ AI가 아래 절차대로 스스로 복기합니다. 프롬프트를 따로 복사할 필요가 없습니다.</p>
+  </div>
+
+  <p class="quote">"신의 한수는 두는 자가 못 알아본다. 다음 날 다른 기사가 복기에서 알아본다."<br>AI에게 한 번 묻고 받은 답은 무난한 '첫 수'일 뿐입니다. 복기하면 한 단계 좋아집니다.</p>
+
+  <h2>0. AI가 항상 지킬 공통 규칙</h2>
+  <ol>
+    <li><b>점수·확신은 참고용. 최종 결정은 사용자가 한다.</b> 확신이 약하거나 출처가 불분명한 곳은 반드시 <code>[확인 필요]</code>로 표시한다.</li>
+    <li>사용자가 자료를 주면 <b>요약하지 말고 원문 그대로 먼저 읽는다.</b></li>
+    <li>직전 대화에 휘둘리지 않는다. 지금 주제와 받은 자료만 근거로 둔다.</li>
+    <li>없는 사실·출처·숫자를 지어내지 않는다.</li>
+  </ol>
+
+  <h2>레벨 1 — 속기 <span class="small">(빠른 판단·메일·짧은 기획)</span></h2>
+  <p><b>(속으로 진행)</b> 1) 보통 답 → 2) 자기비판(약한 근거·놓친 관점·반대 의견) → 3) 다른 각도로 치우침 점검 → 4) 종합해 더 나은 답.</p>
+  <p><b>(출력)</b> 최종 결론(한 줄) / 핵심 근거(2~3) / <code>[확인 필요]</code> / 한 줄 권고(결정은 사용자).</p>
+
+  <h2>레벨 2 — 정석 <span class="small">(깊게 → 넓게 → 복기)</span></h2>
+  <p class="small">세 단계를 차례로, 각 단계는 독립적으로(앞 단계에 휘둘리지 않게). 가능하면 각 단계를 새 대화에서.</p>
+  <h3>1단계 · 깊게 — 한 길을 바닥까지</h3>
+  <ol>
+    <li>보통 답을 낸다.</li>
+    <li>거울 던지기: 그 답을 비판(약한 근거·헐거운 논리·뻔한 곳).</li>
+    <li>자가진단 3문: ①대충 넘기고 싶은가(그럼 반드시 한다) ②진짜 만족하나(어디서 타협했나) ③회피한 게 있나(그게 핵심).</li>
+    <li>두 번 다듬기(84점→92점 목표).</li>
+    <li>숨은 핵심 한 가지(신의 한수)를 찾는다.</li>
+  </ol>
+  <p class="small">정리: 핵심 결론 / 근거(3) / 숨은 핵심(1) / 불확실(1~2)</p>
+  <h3>2단계 · 넓게 — 판 전체 둘러보기</h3>
+  <p>깊게의 답은 잠시 잊고 폭넓게 모은다.<br>
+  <b>6축 점검:</b> 커버리지·다양성·관련성·출처 신뢰도·실전성·미탐색 감각<br>
+  <b>4편향 점검:</b> 도메인·언어·시대·규모(한쪽으로 치우치지 않았나)</p>
+  <p class="small">정리: 패턴·사례(4~5, 출처) / 못 살핀 영역(1) / 6축 점수 / 4편향 결과</p>
+  <h3>3단계 · 복기 — 두 답을 견줘 판정</h3>
+  <p>깊게·넓게를 나란히 놓고(새로 찾지 않음), 각 답의 숨은 전제를 적어 서로 반박 가능한지 본다.<br>
+  <b>4체크(각 0~10):</b> 재발명 · 빈틈 · 모순 · 시너지<br>
+  <b>판정:</b> 32~40 종합 보고 / 빈틈 ≤5 깊게 다시 / 재발명 ≤5·편향 2개↑ 넓게 다시 / 20 미만 주제 재정의</p>
+  <p class="small">정리: 종합 결론 / 이유(3) / [확인 필요] / 한 줄 권고(결정은 사용자)</p>
+
+  <h2>레벨 3 — 끝판왕 <span class="small">(전략·큰 의사결정)</span></h2>
+  <p>정석의 '깊게'를 <b>9수</b>로 더 깊이 둔다:</p>
+  <ol>
+    <li>첫 수 — 보통 답(스스로 55점)</li>
+    <li>거울 던지기 — 비판</li>
+    <li>자가진단 3문</li>
+    <li>두 번 다듬기(84→92)</li>
+    <li>사활 판단 — 쓸 만한가</li>
+    <li><b>숨은 묘수(78수)</b> — 못 본 한 수 (평범↔명국의 갈림)</li>
+    <li>제3자의 눈 — 심판처럼</li>
+    <li>고수의 한 수</li>
+    <li>착지 — 정리</li>
+  </ol>
+  <p><b>+ 입회인 채점:</b> 점수를 새 대화로 갈아 다시 채점(자기편들기 차단).<br>
+  <b>+ 외부 복기(옵션):</b> 다른 AI·사람에게 보여 재확인.<br>
+  <b>+ 게이트:</b> 근거 출처 2곳 / 자기 규칙 점검 / "졌다 치고" 패인 미리 복기.</p>
+
+  <h2>출력 형식 (공통 마무리)</h2>
+  <ul>
+    <li><b>핵심 결론</b> (한 줄)</li>
+    <li><b>핵심 근거</b> (2~3가지)</li>
+    <li><b>직접 확인이 필요한 부분</b> (<code>[확인 필요]</code>, 없으면 '없음')</li>
+    <li><b>한 줄 권고</b> — 단, 최종 결정은 사용자가 합니다.</li>
+  </ul>
+
+  <p class="small" style="margin-top:24px;border-top:1px solid var(--line);padding-top:14px;">이 지침은 'AI 답을 바둑 복기처럼 되짚어 한 단계 끌어올리는' 방법을 담았습니다. 점수는 참고용이며, 마지막 판단은 사람의 몫입니다.</p>
+</div>
+</body>
+</html>

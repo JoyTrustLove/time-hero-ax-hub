@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>바둑 복기 — AI 답을 한 단계 끌어올리기 | 김영웅(AI교육사업실)</title>
+<meta name="description" content="AI가 준 답을 바둑 복기처럼 되짚어 한 단계 끌어올리는 도구. 바쁠 땐 속기, 제대로는 끝판왕 3단계.">
+<link rel="icon" href="../assets/img/logo-wordmark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="container" style="display:flex;align-items:center;justify-content:space-between;width:100%;">
+    <a class="is-button" href="../index.html" aria-label="자료 허브 홈">◆ 김영웅(AI교육사업실)</a>
+    <nav>
+      <button class="nav__toggle" aria-label="메뉴 열기" aria-expanded="false" aria-controls="navMenu">☰</button>
+      <div class="nav__menu" id="navMenu">
+        <a href="../index.html#tools">도구</a>
+        <a href="../guide.html">가이드</a>
+        <a href="../about.html">소개</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="reading">
+
+    <nav class="crumb reveal" style="font-size:var(--fs-sm);color:var(--sub);padding-block:var(--sp-4);">
+      <a href="../index.html">홈</a> <span aria-hidden="true">›</span>
+      <a href="../index.html#tools">도구</a> <span aria-hidden="true">›</span>
+      <b style="color:var(--ink);">바둑 복기</b>
+    </nav>
+
+    <!-- 요약 + 흐름 -->
+    <section class="reveal" style="padding-top:0;">
+      <span class="badge badge--primary"><span class="badge__icon">●</span>점검 · 완성</span>
+      <h1 class="display" style="margin-top:12px;">바둑 복기</h1>
+      <p style="color:var(--sub);font-size:var(--fs-h3);margin:0 0 var(--sp-5);">AI한테 한 번 묻고 받은 답, 나쁘진 않은데 어딘가 아쉬울 때 있죠. 바둑 고수가 한 판 두고 '복기'하듯, AI 답도 되짚으면 한 단계 좋아집니다.</p>
+
+      <div class="flow" role="img" aria-label="AI 첫 답을 복기를 거쳐 더 나은 답으로 끌어올리는 흐름">
+        <div class="cell"><span class="glyph">✗</span><b>AI 첫 답</b><span style="color:var(--sub);font-size:var(--fs-xs);">무난한 '첫 수'</span></div>
+        <span class="arrow" aria-hidden="true">→</span>
+        <div class="cell cell--tool"><span class="glyph">◆</span><b>복기</b><span style="color:var(--sub);font-size:var(--fs-xs);">스스로 되짚기</span></div>
+        <span class="arrow" aria-hidden="true">→</span>
+        <div class="cell"><span class="glyph">✓</span><b>더 나은 답</b><span style="color:var(--sub);font-size:var(--fs-xs);">한 톤 단단해짐</span></div>
+      </div>
+    </section>
+
+    <!-- 3단계 선택 -->
+    <section class="reveal" style="padding-top:0;">
+      <h2 class="section-title">상황 따라 골라 쓰세요 (3단계)</h2>
+      <table class="responsive" style="width:100%;border-collapse:collapse;">
+        <thead><tr>
+          <th style="text-align:left;padding:8px;border-bottom:1px solid var(--line);">단계</th>
+          <th style="text-align:left;padding:8px;border-bottom:1px solid var(--line);">언제</th>
+          <th style="text-align:left;padding:8px;border-bottom:1px solid var(--line);">방법</th>
+        </tr></thead>
+        <tbody>
+          <tr><td data-label="단계" style="padding:8px;border-bottom:1px solid var(--line);"><b>속기</b> (3분 한 판)</td><td data-label="언제" style="padding:8px;border-bottom:1px solid var(--line);">메일·짧은 기획·빠른 판단</td><td data-label="방법" style="padding:8px;border-bottom:1px solid var(--line);">프롬프트 1개</td></tr>
+          <tr><td data-label="단계" style="padding:8px;border-bottom:1px solid var(--line);"><b>정석</b> (1시간 대국)</td><td data-label="언제" style="padding:8px;border-bottom:1px solid var(--line);">중요한 기획·보고</td><td data-label="방법" style="padding:8px;border-bottom:1px solid var(--line);">깊게 · 넓게 · 복기 3수</td></tr>
+          <tr><td data-label="단계" style="padding:8px;border-bottom:1px solid var(--line);"><b>끝판왕</b> (타이틀전)</td><td data-label="언제" style="padding:8px;border-bottom:1px solid var(--line);">전략·큰 의사결정</td><td data-label="방법" style="padding:8px;border-bottom:1px solid var(--line);">9수 + 외부 복기</td></tr>
+        </tbody>
+      </table>
+      <p style="color:var(--sub);font-size:var(--fs-sm);margin-top:var(--sp-3);">바쁘면 <b>속기</b> 하나로 끝내고, 중요하면 <b>정석</b>으로, 정말 큰 결정은 <b>끝판왕</b>으로 올라가면 됩니다.</p>
+    </section>
+
+    <!-- 지침서 첨부 (추천) -->
+    <section class="reveal" style="padding-top:0;">
+      <h2 class="section-title">가장 쉬운 방법 — 지침서를 첨부하세요</h2>
+      <p>프롬프트를 단계마다 복사하기 번거로우면, 아래 <b>지침서 파일을 받아 Gemini에 첨부</b>하고 한 마디만 하면 됩니다. AI가 알아서 속기·정석·끝판왕 절차를 진행합니다.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;margin:var(--sp-3) 0;">
+        <a class="btn btn--primary" href="../downloads/baduk-protocol.md" download>지침서 내려받기 (.md) ↓</a>
+        <a class="btn btn--ghost" href="../downloads/baduk-protocol.html" download>지침서 보기·저장 (.html) ↓</a>
+      </div>
+      <div class="fsteps">
+        <div class="fstep"><span class="fnum">1</span> 위 파일을 내려받기</div>
+        <div class="fstep"><span class="fnum">2</span> Gemini 채팅창에 그 파일을 <b>첨부</b></div>
+        <div class="fstep is-key"><span class="fnum">3</span> "이 지침의 <b>정석</b>으로 [주제] 분석해줘"라고 입력</div>
+      </div>
+      <p style="color:var(--sub);font-size:var(--fs-sm);">→ 프롬프트를 일일이 복사할 필요 없이, <b>첨부 + 한 마디</b>로 끝납니다. (아래 ①②③ 프롬프트는 첨부 없이 바로 복사해 쓰고 싶을 때 쓰세요.)</p>
+    </section>
+
+    <!-- 속기 -->
+    <section class="reveal" style="padding-top:0;">
+      <h2 class="section-title">① 속기 — 바쁠 땐 이것만</h2>
+      <p style="margin:0 0 var(--sp-3);">Gemini(=구글이 만든 AI 챗봇)에 아래를 붙여넣고, 맨 끝 <b>질문</b>만 바꿔 보내면 됩니다.</p>
+      <div class="copy-wrap">
+        <button class="btn btn--primary copy-btn" data-target="#p-sokgi" style="margin-bottom:var(--sp-2);">복사하기</button>
+        <span class="copy-fallback" hidden style="color:var(--danger);font-size:var(--fs-sm);margin-left:8px;">자동 복사가 안 되면 아래 상자를 드래그해 복사하세요.</span>
+<pre id="p-sokgi">당신은 한 번에 끝내지 않고 '복기'하는 답변자입니다. 아래 질문에 대해 다음 순서로 스스로 진행한 뒤, 마지막 결론만 보여주세요.
+
+(속으로 진행)
+1) 먼저 보통 수준의 답을 냅니다.
+2) 그 답을 스스로 비판합니다 — 약한 근거, 놓친 관점, 있을 법한 반대 의견.
+3) 다른 각도·사례도 한 번 둘러봅니다. 한쪽으로 치우치지 않았는지 점검합니다.
+4) 위를 종합해 더 나은 최종 답을 만듭니다.
+
+(화면 출력 — 결론 위주로)
+- 최종 결론: (한 줄)
+- 핵심 근거: (2~3가지)
+- 직접 확인이 필요한 부분: ([확인 필요] 표시. 없으면 '없음')
+- 한 줄 권고: (단, 최종 결정은 제가 합니다)
+
+질문: [여기에 적으세요]</pre>
+      </div>
+    </section>
+
+    <!-- 정석 -->
+    <section class="reveal" style="padding-top:0;">
+      <h2 class="section-title">② 정석 — 깊게 → 넓게 → 복기 (3수)</h2>
+      <p style="color:var(--sub);margin:0 0 var(--sp-3);">중요한 기획·보고일 때. 가능하면 <b>각 수를 새 대화에서</b> 돌리면 더 깔끔합니다.</p>
+      <div class="fchart" role="img" aria-label="정석 흐름: 깊게에서 넓게로, 넓게에서 복기로 이어지는 3단계">
+        <div class="fnode"><span class="fnum">1</span><b>깊게</b><span class="fdesc">한 길을 바닥까지 파기</span></div>
+        <span class="farrow" aria-hidden="true">→</span>
+        <div class="fnode"><span class="fnum">2</span><b>넓게</b><span class="fdesc">판 전체 둘러보기</span></div>
+        <span class="farrow" aria-hidden="true">→</span>
+        <div class="fnode is-key"><span class="fnum">3</span><b>복기</b><span class="fdesc">두 답 견줘 판정·종합</span></div>
+      </div>
+      <p style="color:var(--sub);font-size:var(--fs-sm);margin:0 0 var(--sp-4);">아래 1·2·3 프롬프트를 순서대로 복사해 쓰면 됩니다.</p>
+
+      <h3>1수 · 깊게 (한 길을 바닥까지)</h3>
+      <div class="copy-wrap">
+        <button class="btn btn--ghost copy-btn" data-target="#p-deep" style="margin-bottom:var(--sp-2);">복사하기</button>
+<pre id="p-deep">당신은 아래 주제를 한 방향으로 바닥까지 파고드는 역할입니다. 넓게 펼치지 마세요.
+1) 보통 답을 일단 냅니다. 2) 스스로 비판합니다(약한 근거·헐거운 논리·뻔한 곳).
+3) 매 단계 자문: ①대충 넘기고 싶은가(그렇다면 반드시 한다) ②진짜 만족하나(어디서 타협했나) ③회피한 게 있나(그게 핵심).
+4) 비판을 반영해 두 번 더 다듬습니다(84점→92점 목표). 5) 남들이 못 본 '숨은 핵심 한 가지'를 찾습니다.
+정리: 핵심 결론(한 줄)/근거(3)/숨은 핵심(1)/불확실(1~2)
+주제: [여기에 적으세요]</pre>
+      </div>
+
+      <h3>2수 · 넓게 (판 전체 둘러보기)</h3>
+      <div class="copy-wrap">
+        <button class="btn btn--ghost copy-btn" data-target="#p-wide" style="margin-bottom:var(--sp-2);">복사하기</button>
+<pre id="p-wide">당신은 아래 주제를 넓게 둘러보는 역할입니다. 깊이 파기보다 주변을 폭넓게 훑으세요. (앞 '깊게' 답은 참고하지 마세요.)
+1) 다른 관점·사례·반대 의견을 다양하게 모읍니다. 2) 치우침 점검(한 분야만? 한쪽 언어만? 옛날/최신만? 대기업만?). 3) 못 살핀 영역을 적습니다.
+정리: 눈에 띄는 패턴·사례(4~5, 각 한 줄+출처)/못 살핀 영역(1)
+주제: [깊게와 같은 주제]</pre>
+      </div>
+
+      <h3>3수 · 복기 (두 답을 견줘 판정)</h3>
+      <div class="copy-wrap">
+        <button class="btn btn--ghost copy-btn" data-target="#p-review" style="margin-bottom:var(--sp-2);">복사하기</button>
+<pre id="p-review">아래 '깊게 본 답'과 '넓게 본 답'을 나란히 놓고 복기해 주세요. 새로 찾지는 마세요.
+먼저 두 답의 숨은 전제를 각각 적고 서로 반박 가능한지 봅니다.
+그다음 0~10점 채점: 재발명(서로 베꼈나)/빈틈(합쳐도 놓친 것)/모순(서로 충돌)/시너지(합치면 새 통찰)
+정리: 종합 결론(한 줄)/이유(3)/직접 확인 필요([확인 필요])/한 줄 권고(결정은 제가 합니다)
+[깊게 본 답 붙여넣기]
+[넓게 본 답 붙여넣기]</pre>
+      </div>
+    </section>
+
+    <!-- 끝판왕 -->
+    <section class="reveal" style="padding-top:0;">
+      <h2 class="section-title">③ 끝판왕 — 정말 큰 결정일 때</h2>
+      <p style="margin:0 0 var(--sp-2);">정석의 '깊게'를 <b>9수</b>로 더 깊이 둡니다(전략·큰 의사결정용):</p>
+      <div class="fsteps" role="img" aria-label="끝판왕 깊게 9수 흐름">
+        <div class="fstep"><span class="fnum">1</span> 첫 수 — 보통 답을 일단 낸다</div>
+        <div class="fstep"><span class="fnum">2</span> 거울 던지기 — 그 답을 스스로 비판</div>
+        <div class="fstep"><span class="fnum">3</span> 자가진단 3문 — 대충? 진짜 만족? 회피?</div>
+        <div class="fstep"><span class="fnum">4</span> 두 번 다듬기 — 84점 → 92점</div>
+        <div class="fstep"><span class="fnum">5</span> 사활 판단 — 살았나(쓸 만한가) 죽었나</div>
+        <div class="fstep is-key"><span class="fnum">6</span> 숨은 묘수 찾기 — 이세돌 78수 (평범 ↔ 명국의 갈림)</div>
+        <div class="fstep"><span class="fnum">7</span> 제3자의 눈 — 심판처럼 판 전체 보기</div>
+        <div class="fstep"><span class="fnum">8</span> 고수라면 — 이 분야 고수의 한 수 보태기</div>
+        <div class="fstep"><span class="fnum">9</span> 착지 — 아래 형식으로 정리</div>
+      </div>
+      <p style="color:var(--sub);font-size:var(--fs-sm);margin:0 0 var(--sp-4);">여기에 더해 <b>입회인 채점</b>(새 대화로 재채점) + <b>외부 복기</b>(다른 AI·사람에게 재확인)까지 하면 끝판왕입니다.<br><i>"신의 한수는 두는 자가 못 알아본다. 다음 날 다른 기사가 알아본다."</i></p>
+
+      <h3>끝판왕 · 깊게 9수 프롬프트</h3>
+      <div class="copy-wrap">
+        <button class="btn btn--primary copy-btn" data-target="#p-final" style="margin-bottom:var(--sp-2);">복사하기</button>
+<pre id="p-final">당신은 아래 주제를 한 방향으로 바닥까지 두는 '깊게 9수'를 진행합니다.
+
+1) 첫 수: 보통 수준의 답을 냅니다(스스로 55점이라 보고 시작).
+2) 거울 던지기: 그 답을 비판합니다 — 근거 약한 곳, 논리 헐거운 곳, 뻔한 곳.
+3) 자가진단 3문(매 수마다): ①대충 넘기고 싶은가(그럼 반드시 둔다) ②진짜 만족하나(어디서 타협했나) ③회피한 게 있나(그게 핵심).
+4) 두 번 다듬기: 비판을 반영해 84점→92점으로 2회 다듬습니다.
+5) 사활 판단: 이 답이 쓸 만한지(살았는지) 냉정히 가릅니다.
+6) 숨은 묘수(78수): 남들과 방금의 내가 못 본 핵심 한 수를 일부러 찾습니다.
+7) 제3자의 눈: 심판의 시선으로 판 전체를 내려다봅니다.
+8) 고수의 한 수: 이 분야 고수라면 뭐라 할지 자문해 보탭니다.
+9) 착지: 아래로 정리합니다.
+- 핵심 결론(한 줄) / 핵심 근거(3) / 숨은 핵심 한 가지(78수) / 아직 불확실(1~2)
+- 자가진단: 스킵 유혹 yes/no · 어디서 타협했나 · 회피한 것
+
+주제: [여기에 적으세요]</pre>
+      </div>
+      <p style="color:var(--sub);font-size:var(--fs-sm);margin-top:var(--sp-2);">※ 9수를 마친 뒤 '넓게'·'복기'는 정석(②)의 2수·3수 프롬프트를 그대로 이어 쓰면 됩니다.</p>
+    </section>
+
+    <!-- 안전 -->
+    <section class="reveal" style="padding-top:0;">
+      <div style="background:var(--warn-soft);color:var(--warn-ink);border-radius:var(--r-md);padding:var(--sp-4);">
+        <b><span class="glyph">▲</span> 꼭 기억하세요</b> — AI가 주는 점수·확신은 <b>참고용</b>입니다. 마지막 결정은 사람이 해요. 그래서 모든 단계 끝에 <b>'직접 확인이 필요한 부분([확인 필요])'</b>을 표시하게 해뒀습니다. 거기부터 직접 보세요.
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="reveal" style="padding-top:0;">
+      <h2 class="section-title">자주 묻는 질문</h2>
+      <details style="border:1px solid var(--line);border-radius:var(--r-md);padding:var(--sp-3) var(--sp-4);margin-bottom:8px;">
+        <summary style="font-weight:600;cursor:pointer;">속기랑 정석, 뭘 써야 하나요?</summary>
+        <p style="color:var(--sub);margin:8px 0 0;">메일·빠른 판단은 속기 하나면 충분해요. 보고서·중요 기획처럼 '틀리면 곤란한' 건 정석으로 깊게·넓게·복기까지 돌리세요.</p>
+      </details>
+      <details style="border:1px solid var(--line);border-radius:var(--r-md);padding:var(--sp-3) var(--sp-4);margin-bottom:8px;">
+        <summary style="font-weight:600;cursor:pointer;">정석에서 '새 대화'로 하라는 이유가 뭔가요?</summary>
+        <p style="color:var(--sub);margin:8px 0 0;">같은 대화에서 계속하면 AI가 앞 답을 두둔하기 쉬워요. 새 대화로 갈면 '자기편들기'가 줄어 더 냉정하게 봅니다.</p>
+      </details>
+      <details style="border:1px solid var(--line);border-radius:var(--r-md);padding:var(--sp-3) var(--sp-4);">
+        <summary style="font-weight:600;cursor:pointer;">Gemini 말고 다른 AI도 되나요?</summary>
+        <p style="color:var(--sub);margin:8px 0 0;">됩니다. 복기 방식 자체는 도구를 가리지 않아요. 프롬프트를 그대로 다른 AI에 붙여 써도 작동합니다.</p>
+      </details>
+    </section>
+
+    <!-- 다른 도구 -->
+    <section class="reveal" style="padding-top:0;">
+      <h2 class="section-title">다른 도구</h2>
+      <p><a href="cliche-eraser.html">AI 클리셰 지우개</a> — Gemini로 쓴 글의 'AI가 쓴 티'를 사람 말투로 다듬기 · <span class="badge badge--success"><span class="badge__icon">●</span>완성</span></p>
+      <p style="margin-top:var(--sp-4);"><a href="../index.html#tools">← 도구 모음으로 돌아가기</a></p>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <p><b>◆ 김영웅(AI교육사업실)</b></p>
+    <p class="gov">도구: AI 클리셰 지우개 · 바둑 복기 · 회의록 정리기(곧)</p>
+    <p class="gov">
+      이 페이지는 사내 Time AX Hub 자료를 모아 설명한 개인 페이지(AI교육사업실+김영웅)입니다.<br>
+      회사 공식 사이트가 아니며(unofficial), 회사 기밀은 포함하지 않습니다.
+    </p>
+    <p class="gov">문의는 사내 채널로 부탁드립니다. · 최종 업데이트: 2026-06-21</p>
+    <p class="gov"><a href="../index.html">↩ 홈으로</a></p>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js"></script>
+</body>
+</html>
