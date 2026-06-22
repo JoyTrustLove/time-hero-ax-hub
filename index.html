@@ -10,7 +10,6 @@
 </head>
 <body>
 
-<!-- S0 네비 -->
 <header class="nav">
   <div class="container" style="display:flex;align-items:center;justify-content:space-between;width:100%;">
     <a class="is-button" href="index.html" aria-label="자료 허브 홈">◆ 김영웅(AI교육사업실)</a>
@@ -27,27 +26,27 @@
 
 <main>
 
-  <!-- S1 히어로 -->
-  <section>
+  <!-- S1 히어로 (강화) -->
+  <section class="hero--v2">
     <div class="container">
       <div class="hero">
-        <div class="hero__copy">
+        <div class="hero__copy reveal reveal-1">
           <span class="badge badge--primary"><span class="badge__icon">●</span>연계 · Time AX Hub · 비공식</span>
-          <h1 class="display" style="margin-top:14px;">AI가 써준 글, 사람이 쓴 글처럼.</h1>
+          <h1 class="display" style="margin-top:14px;font-size:clamp(1.9rem,5.4vw,2.6rem);">AI가 써준 글,<br>사람이 쓴 글처럼.</h1>
           <p style="color:var(--sub);margin:0 0 6px;">복사해서 붙여넣기만 하면 끝. 보고서·메일·기획서를 자연스럽게 다듬는 도구와 가이드를 한곳에 모았어요.</p>
-          <p style="font-size:var(--fs-sm);color:var(--sub);margin:0;">타임교육 <b style="color:var(--ink);">김영웅</b>이 직접 만들어 써 보고, 잘 되는 것만 공유합니다.</p>
+          <p style="font-size:var(--fs-sm);color:var(--sub);margin:0;">타임교육 <b style="color:var(--ink);">김영웅(AI교육사업실)</b>이 직접 만들어 써 보고, 잘 되는 것만 공유합니다.</p>
           <div class="hero__cta">
             <a class="btn btn--primary" href="tools/cliche-eraser.html">AI 클리셰 지우개 써보기 ▷</a>
             <a class="btn btn--ghost" href="guide.html">처음이세요? 가이드 보기</a>
           </div>
         </div>
         <div class="hero__art">
-          <div class="flow" role="img" aria-label="고치기 전 글이 AI 클리셰 지우개를 거쳐 고친 후 글이 되는 흐름">
-            <div class="cell"><span class="glyph">✗</span><b>고치기 전</b><span style="color:var(--sub);font-size:var(--fs-xs);">AI 티 나는 글</span></div>
-            <span class="arrow" aria-hidden="true">→</span>
-            <div class="cell cell--tool"><span class="glyph">◆</span><b>AI 클리셰 지우개</b><span style="color:var(--sub);font-size:var(--fs-xs);">붙여넣기 한 번</span></div>
-            <span class="arrow" aria-hidden="true">→</span>
-            <div class="cell"><span class="glyph">✓</span><b>고친 후</b><span style="color:var(--sub);font-size:var(--fs-xs);">사람이 쓴 글</span></div>
+          <div class="hero-visual reveal reveal-2" role="img" aria-label="고치기 전 글이 AI 클리셰 지우개를 거쳐 고친 후 글이 되는 흐름">
+            <div class="vcard is-before"><span class="vico">✗</span><div><b>고치기 전</b><div class="vsub">AI 티 나는 글</div></div></div>
+            <div class="vsep" aria-hidden="true">↓</div>
+            <div class="vcard is-tool"><span class="vico">◆</span><div><b>AI 클리셰 지우개</b><div class="vsub">붙여넣기 한 번</div></div></div>
+            <div class="vsep" aria-hidden="true">↓</div>
+            <div class="vcard is-after"><span class="vico">✓</span><div><b>고친 후</b><div class="vsub">사람이 쓴 글</div></div></div>
           </div>
         </div>
       </div>
@@ -57,15 +56,15 @@
   <!-- S2 정체성 -->
   <section style="padding-block:0;">
     <div class="container">
-      <p class="identity">여기는 김영웅(AI교육사업실)이 사내 Time AX Hub에 올린 글을 한곳에 모아 자세히 설명한 <b>개인 페이지</b>예요. 회사 공식 사이트는 아닙니다.</p>
+      <p class="identity reveal">여기는 김영웅(AI교육사업실)이 사내 Time AX Hub에 올린 글을 한곳에 모아 자세히 설명한 <b>개인 페이지</b>예요. 회사 공식 사이트는 아닙니다.</p>
     </div>
   </section>
 
-  <!-- S3 분류 탭(비클릭 라벨) + S4 카드 -->
+  <!-- S3 탭 + S4 카드 -->
   <section id="tools">
     <div class="container">
-      <h2 class="section-title">도구 모음</h2>
-      <div class="tabs" style="margin-bottom:var(--sp-5);">
+      <h2 class="section-title reveal">도구 모음</h2>
+      <div class="tabs reveal" style="margin-bottom:var(--sp-5);">
         <span class="tabs-label">분류:</span>
         <span class="tab tab--label" aria-current="true"><span class="glyph">■</span> 전체</span>
         <span class="tab tab--label"><span class="glyph">●</span> 글 다듬기</span>
@@ -74,8 +73,7 @@
       </div>
 
       <div class="grid">
-        <!-- 카드 1: 대표·완성 -->
-        <article class="card card--feature">
+        <article class="card card--feature reveal reveal-1">
           <div class="card-top">
             <span class="badge badge--primary"><span class="badge__icon">●</span>글 다듬기</span>
             <span class="feature-tag"><span class="glyph">★</span> 대표</span>
@@ -91,8 +89,7 @@
           </div>
         </article>
 
-        <!-- 카드 2: 준비중 -->
-        <article class="card card--soon">
+        <article class="card card--soon reveal reveal-2">
           <div class="card-top">
             <span class="badge badge--primary"><span class="badge__icon">■</span>회의</span>
             <span class="badge badge--warn"><span class="badge__icon">◐</span>준비중</span>
@@ -106,8 +103,7 @@
           <p class="soon-note">아직 준비 중이에요 (눌러도 열리지 않습니다).</p>
         </article>
 
-        <!-- 카드 3: 준비중 -->
-        <article class="card card--soon">
+        <article class="card card--soon reveal reveal-3">
           <div class="card-top">
             <span class="badge badge--primary"><span class="badge__icon">▲</span>점검</span>
             <span class="badge badge--warn"><span class="badge__icon">◐</span>준비중</span>
@@ -127,7 +123,7 @@
   <!-- S5 구제띠 -->
   <section style="padding-top:0;">
     <div class="container">
-      <div class="rescue">
+      <div class="rescue reveal">
         <h2>AI 처음이세요? 1분이면 됩니다.</h2>
         <p style="color:var(--sub);margin:0;">설치도, 코딩도 없어요. 아래 3가지만 하면 됩니다.</p>
         <div class="steps-inline">
@@ -143,13 +139,13 @@
   <!-- S6 신뢰띠 -->
   <section style="padding-top:0;">
     <div class="container">
-      <div class="trust">
+      <div class="trust reveal">
         <div class="who">
-          <span class="glyph" aria-hidden="true">◆</span> <b>김영웅</b> · 타임교육 재직<br>
+          <span class="glyph" aria-hidden="true">◆</span> <b>김영웅(AI교육사업실)</b> · 타임교육 재직<br>
           <span class="meta">직접 만들어 써 보고, 잘 되는 것만 올립니다.</span>
         </div>
         <div style="display:flex;gap:var(--sp-4);align-items:center;flex-wrap:wrap;">
-          <span class="meta">최종 업데이트 2026-06-19</span>
+          <span class="meta">최종 업데이트 2026-06-21</span>
           <a class="btn btn--ghost" href="about.html">소개 더 보기</a>
         </div>
       </div>
@@ -158,7 +154,6 @@
 
 </main>
 
-<!-- S7 푸터 (거버넌스 템플릿) -->
 <footer>
   <div class="container">
     <p><b>◆ 김영웅(AI교육사업실)</b></p>
@@ -167,7 +162,7 @@
       이 페이지는 사내 Time AX Hub 자료를 모아 설명한 개인 페이지(AI교육사업실+김영웅)입니다.<br>
       회사 공식 사이트가 아니며(unofficial), 회사 기밀은 포함하지 않습니다.
     </p>
-    <p class="gov">문의는 사내 채널로 부탁드립니다. · 최종 업데이트: 2026-06-19</p>
+    <p class="gov">문의는 사내 채널로 부탁드립니다. · 최종 업데이트: 2026-06-21</p>
     <p class="gov">© 2026 김영웅 (가이드 문서의 서술·디자인에 한함)</p>
   </div>
 </footer>

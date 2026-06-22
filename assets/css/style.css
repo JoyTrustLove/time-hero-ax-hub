@@ -287,3 +287,37 @@ footer .gov { margin:var(--sp-2) 0; line-height:1.6; }
   table.responsive td::before { content:attr(data-label); font-weight:var(--fw-semi);
     min-width:96px; color:var(--sub); }
 }
+
+/* =========================================================
+   디자인 강화 v2 (2026-06-21 채택) — 등장 애니메이션·히어로 비주얼·폴리시
+   ========================================================= */
+@keyframes reveal-up { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:none; } }
+.reveal { animation: reveal-up .6s var(--ease) both; }
+.reveal-1{animation-delay:.05s;} .reveal-2{animation-delay:.15s;} .reveal-3{animation-delay:.25s;} .reveal-4{animation-delay:.35s;}
+@media (prefers-reduced-motion: reduce){ .reveal{animation:none;} }
+
+.hero--v2 { position:relative; overflow:hidden;
+  background:linear-gradient(135deg,#EAF1FE 0%,#F5F8FF 55%,#FFFFFF 100%); }
+.hero--v2::before { content:""; position:absolute; width:360px; height:360px; border-radius:50%;
+  background:radial-gradient(circle at 30% 30%, rgba(37,99,235,.20), rgba(124,58,237,.06) 60%, transparent 72%);
+  top:-130px; right:-90px; pointer-events:none; }
+.hero--v2::after { content:""; position:absolute; width:240px; height:240px; border-radius:50%;
+  background:radial-gradient(circle, rgba(124,58,237,.12), transparent 70%); bottom:-110px; left:-70px; pointer-events:none; }
+.hero--v2 .hero { background:transparent; border:none; }
+
+.hero-visual { position:relative; z-index:1; display:grid; gap:10px; }
+.vcard { background:#fff; border:1px solid var(--line); border-radius:16px; padding:15px 18px;
+  box-shadow:var(--sh-md); display:flex; align-items:center; gap:13px; }
+.vcard .vico { width:42px; height:42px; border-radius:12px; display:grid; place-items:center; flex:none; font-weight:800; font-size:18px; }
+.vcard.is-before .vico { background:#F3F4F6; color:#374151; }
+.vcard.is-tool { border-color:transparent; background:linear-gradient(135deg,#2563EB,#1D4ED8); color:#fff; box-shadow:var(--sh-lg); }
+.vcard.is-tool .vico { background:rgba(255,255,255,.22); color:#fff; }
+.vcard.is-after .vico { background:#EFF4FF; color:#1D4ED8; }
+.vcard .vsub { font-size:13px; color:var(--sub); }
+.vcard.is-tool .vsub { color:rgba(255,255,255,.85); }
+.vsep { text-align:center; color:var(--primary); font-weight:800; font-size:18px; line-height:1; }
+
+.btn--primary { background:linear-gradient(135deg,#2563EB,#1D4ED8); }
+.btn--primary:hover { transform:translateY(-1px); box-shadow:var(--sh-lg); }
+.display { font-weight:800; letter-spacing:-.01em; }
+.badge--primary { box-shadow:inset 0 0 0 1px rgba(37,99,235,.10); }
