@@ -4,9 +4,36 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>바둑 복기 — AI 답을 한 단계 끌어올리기 | 김영웅(AI교육사업실)</title>
-<meta name="description" content="AI가 준 답을 바둑 복기처럼 되짚어 한 단계 끌어올리는 도구. 바쁠 땐 속기, 제대로는 끝판왕 3단계.">
+<meta name="description" content="AI가 준 답을 바둑 복기처럼 되짚어 한 단계 끌어올리는 도구. 바쁠 땐 속기, 제대로는 끝판왕 3단계. v2.0 — 실전 예시·화면 포함.">
 <link rel="icon" href="../assets/img/logo-wordmark.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../assets/css/style.css">
+<style>
+/* 이 페이지 전용 — Gemini 채팅 화면 목업 (스크린샷 대용) */
+.mock{border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh-md);max-width:540px;margin-top:10px;background:var(--bg);}
+.mock__bar{background:var(--surface);border-bottom:1px solid var(--line);padding:9px 14px;display:flex;align-items:center;gap:8px;}
+.mock__dot{width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#2563EB,#7C3AED);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:12px;flex:none;}
+.mock__body{padding:14px;display:flex;flex-direction:column;gap:11px;}
+.mock__row{display:flex;gap:8px;align-items:flex-start;}
+.mock__row--me{justify-content:flex-end;}
+.mock__av{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#2563EB,#7C3AED);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:12px;flex:none;}
+.mock__ai{background:var(--surface);border:1px solid var(--line);border-radius:4px 14px 14px 14px;padding:10px 12px;font-size:13px;line-height:1.6;max-width:82%;color:var(--ink);}
+.mock__me{background:var(--primary-soft);border:1px solid #C7DBFB;border-radius:14px 4px 14px 14px;padding:10px 12px;font-size:13px;line-height:1.55;max-width:82%;color:var(--ink);}
+.mock__who{display:block;font-size:11px;font-weight:700;margin-bottom:3px;letter-spacing:.02em;}
+.mock__who--me{color:var(--primary-deep);text-align:right;}
+.mock__who--ai{color:var(--secondary);}
+.mock__input{background:var(--surface);border-top:1px solid var(--line);padding:10px 14px;display:flex;align-items:center;gap:8px;}
+.mock__ph{flex:1;color:var(--sub);font-size:var(--fs-sm);}
+.mock__send{width:28px;height:28px;border-radius:50%;background:var(--primary);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:14px;flex:none;}
+.mock__cap{font-size:var(--fs-xs);color:var(--sub);margin-top:6px;}
+.mock__muted{color:var(--sub);}
+.mock__tab{display:inline-block;font-size:11px;font-weight:700;background:var(--secondary-soft);color:var(--secondary);border-radius:6px;padding:2px 8px;margin-bottom:2px;}
+/* 3칸 비교 (정석 깊게/넓게/복기) */
+.tri{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0;}
+.tri>div{flex:1;min-width:200px;border:1px solid var(--line);border-radius:var(--r-md);padding:12px 14px;background:var(--surface);}
+.tri .h{font-size:12px;font-weight:700;margin-bottom:6px;}
+.tri .b{font-size:13px;color:var(--sub);line-height:1.5;}
+.stepnote{font-size:var(--fs-sm);color:var(--sub);margin:0 0 var(--sp-2);}
+</style>
 </head>
 <body>
 
@@ -35,7 +62,7 @@
 
     <!-- 요약 + 흐름 -->
     <section class="reveal" style="padding-top:0;">
-      <span class="badge badge--primary"><span class="badge__icon">●</span>점검 · 완성</span>
+      <span class="badge badge--primary"><span class="badge__icon">●</span>점검 · 완성 · v2.0</span>
       <h1 class="display" style="margin-top:12px;">바둑 복기</h1>
       <p style="color:var(--sub);font-size:var(--fs-h3);margin:0 0 var(--sp-5);">AI한테 한 번 묻고 받은 답, 나쁘진 않은데 어딘가 아쉬울 때 있죠. 바둑 고수가 한 판 두고 '복기'하듯, AI 답도 되짚으면 한 단계 좋아집니다.</p>
 
@@ -46,6 +73,26 @@
         <span class="arrow" aria-hidden="true">→</span>
         <div class="cell"><span class="glyph">✓</span><b>더 나은 답</b><span style="color:var(--sub);font-size:var(--fs-xs);">한 톤 단단해짐</span></div>
       </div>
+    </section>
+
+    <!-- 한눈에: 진짜 달라지나? Before/After 맛보기 -->
+    <section class="reveal" style="padding-top:0;">
+      <h2 class="section-title">진짜 달라지나요? (맛보기)</h2>
+      <p style="color:var(--sub);margin:0 0 var(--sp-3);">같은 질문에 '한 번 답'과 '복기한 답'이 어떻게 다른지 먼저 보세요. <span class="mock__muted">(설명용 예시)</span></p>
+      <p style="font-weight:700;margin:0 0 var(--sp-2);">질문: "팀 회의 시간을 60분에서 30분으로 줄여도 될까?"</p>
+
+      <div class="ba-before" style="background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:var(--sp-4);margin-bottom:var(--sp-2);">
+        <span class="ba-tag badge"><span class="glyph">✗</span> AI 첫 답 (한 번에 받은 답)</span>
+        <p style="margin:8px 0 0;">회의 시간 단축은 효율성을 높입니다. 장점은 집중도 향상과 시간 절약이고, 단점은 논의가 부족할 수 있다는 점입니다. 따라서 단축을 권장합니다.</p>
+      </div>
+      <p style="text-align:center;color:var(--sub);margin:0 0 var(--sp-2);" aria-hidden="true">↓ 복기</p>
+      <div class="ba-after" style="background:var(--primary-soft);border:1px solid var(--line);border-radius:var(--r-md);padding:var(--sp-4);margin-bottom:var(--sp-3);">
+        <span class="ba-tag badge"><span class="glyph">✓</span> 복기한 답</span>
+        <p style="margin:8px 0 0;"><b>결론:</b> 시간보다 '회의 종류'가 먼저예요. 정보 공유 회의는 30분으로 줄여도 되지만, 결정을 내려야 하는 회의는 60분을 두는 편이 낫습니다.<br>
+        <b>근거:</b> ① 문제는 길이가 아니라 안건 수 ② 공유형은 짧게도 충분 ③ 합의형까지 일률로 줄이면 중요한 결정이 쫓기듯 처리됨<br>
+        <span class="mock__muted">직접 확인: 우리 팀 회의 중 '결정형' 비율이 얼마나 되는지 [확인 필요] · 결정은 본인이.</span></p>
+      </div>
+      <p style="color:var(--sub);font-size:var(--fs-sm);margin:0;">→ 첫 답은 '양쪽 다 맞는 말'에서 멈추지만, 복기하면 <b>나눠서 판단할 기준</b>이 나옵니다. 이걸 3단계로 깊이만 조절해 쓰는 게 이 도구예요.</p>
     </section>
 
     <!-- 3단계 선택 -->
@@ -85,7 +132,7 @@
     <!-- 속기 -->
     <section class="reveal" style="padding-top:0;">
       <h2 class="section-title">① 속기 — 바쁠 땐 이것만</h2>
-      <p style="margin:0 0 var(--sp-3);">Gemini(=구글이 만든 AI 챗봇)에 아래를 붙여넣고, 맨 끝 <b>질문</b>만 바꿔 보내면 됩니다.</p>
+      <p style="margin:0 0 var(--sp-3);">Gemini(=구글이 만든 AI 챗봇)에 아래를 붙여넣고, 맨 끝 <b>질문</b>만 바꿔 보내면 됩니다. AI가 속으로 한 번 더 따져본 뒤 결론만 깔끔하게 줍니다.</p>
       <div class="copy-wrap">
         <button class="btn btn--primary copy-btn" data-target="#p-sokgi" style="margin-bottom:var(--sp-2);">복사하기</button>
         <span class="copy-fallback" hidden style="color:var(--danger);font-size:var(--fs-sm);margin-left:8px;">자동 복사가 안 되면 아래 상자를 드래그해 복사하세요.</span>
@@ -105,12 +152,28 @@
 
 질문: [여기에 적으세요]</pre>
       </div>
+
+      <p class="stepnote" style="margin-top:var(--sp-4);">↓ 실제로 이렇게 보여요</p>
+      <div class="mock" role="img" aria-label="예시 화면: 속기 프롬프트와 질문을 보내자 AI가 결론·근거·확인 필요·권고 형식으로 답한 모습">
+        <div class="mock__bar"><span class="mock__dot">✦</span><b style="font-size:var(--fs-sm);">Gemini</b><span class="mock__muted" style="font-size:var(--fs-xs);">· 새 대화</span></div>
+        <div class="mock__body">
+          <div class="mock__row mock__row--me">
+            <div class="mock__me"><span class="mock__who mock__who--me">나</span>당신은 한 번에 끝내지 않고 '복기'하는 답변자입니다… <span class="mock__muted">(속기 프롬프트)</span><br>질문: 팀 워크숍을 사내에서 할까, 외부에서 할까?</div>
+          </div>
+          <div class="mock__row">
+            <span class="mock__av">✦</span>
+            <div class="mock__ai"><span class="mock__who mock__who--ai">Gemini</span><b>최종 결론:</b> 목적이 '교류·재충전'이면 외부, '집중 워크'면 사내가 낫습니다.<br><b>핵심 근거:</b> ① 외부는 분위기 전환에 강함 ② 사내는 비용·이동 부담이 적음 ③ 둘을 섞으면 오전 사내·오후 외부도 가능<br><b>직접 확인:</b> 예산 한도 [확인 필요]<br><b>한 줄 권고:</b> 목적부터 정하세요. (결정은 본인이)</div>
+          </div>
+        </div>
+        <div class="mock__input"><span class="mock__ph">메시지 입력…</span><span class="mock__send" aria-hidden="true">↑</span></div>
+      </div>
+      <p class="mock__cap">↑ 점수·과정은 속으로만 거치고, 화면엔 '결론 → 근거 → 확인할 곳 → 권고'만 깔끔하게 나옵니다.</p>
     </section>
 
     <!-- 정석 -->
     <section class="reveal" style="padding-top:0;">
       <h2 class="section-title">② 정석 — 깊게 → 넓게 → 복기 (3수)</h2>
-      <p style="color:var(--sub);margin:0 0 var(--sp-3);">중요한 기획·보고일 때. 가능하면 <b>각 수를 새 대화에서</b> 돌리면 더 깔끔합니다.</p>
+      <p style="color:var(--sub);margin:0 0 var(--sp-3);">중요한 기획·보고일 때. 한 길을 깊이 파고(깊게), 판 전체를 둘러본 뒤(넓게), 둘을 견줘 결론(복기)냅니다. 가능하면 <b>각 수를 새 대화에서</b> 돌리면 AI가 앞 답을 두둔하지 않아 더 냉정합니다.</p>
       <div class="fchart" role="img" aria-label="정석 흐름: 깊게에서 넓게로, 넓게에서 복기로 이어지는 3단계">
         <div class="fnode"><span class="fnum">1</span><b>깊게</b><span class="fdesc">한 길을 바닥까지 파기</span></div>
         <span class="farrow" aria-hidden="true">→</span>
@@ -118,20 +181,44 @@
         <span class="farrow" aria-hidden="true">→</span>
         <div class="fnode is-key"><span class="fnum">3</span><b>복기</b><span class="fdesc">두 답 견줘 판정·종합</span></div>
       </div>
-      <p style="color:var(--sub);font-size:var(--fs-sm);margin:0 0 var(--sp-4);">아래 1·2·3 프롬프트를 순서대로 복사해 쓰면 됩니다.</p>
+
+      <p class="stepnote" style="margin-top:var(--sp-4);">↓ 세 대화를 나눠 도는 모습 <span class="mock__muted">(설명용 예시 — 주제: "신규 온라인 교육 과정을 새로 만들까?")</span></p>
+      <div class="mock" role="img" aria-label="예시 화면: 깊게·넓게·복기를 각각 새 대화에서 돌리는 세 컷">
+        <div class="mock__bar"><span class="mock__dot">✦</span><b style="font-size:var(--fs-sm);">Gemini</b><span class="mock__muted" style="font-size:var(--fs-xs);">· 새 대화 3개</span></div>
+        <div class="mock__body">
+          <div class="mock__row">
+            <span class="mock__av">✦</span>
+            <div class="mock__ai"><span class="mock__tab">1수 · 깊게</span><br>수요·제작비·기존 과정과의 중복을 한 방향으로 깊이 팝니다. → "수요는 있으나 제작비 회수에 2년+, 기존 과정과 30% 겹침."</div>
+          </div>
+          <div class="mock__row">
+            <span class="mock__av">✦</span>
+            <div class="mock__ai"><span class="mock__tab">2수 · 넓게</span><br>경쟁사 사례·외부 플랫폼 활용·사내 수요조사 등 판 전체를 훑습니다. → "직접 제작 외에 제휴·리뉴얼 등 대안 3개."</div>
+          </div>
+          <div class="mock__row">
+            <span class="mock__av">✦</span>
+            <div class="mock__ai"><span class="mock__tab">3수 · 복기</span><br>두 답을 견줘 판정·종합합니다. → "신규 제작보다 <b>기존 과정 리뉴얼 + 외부 플랫폼 1곳 시범 제휴</b>가 비용·위험이 낮음. [확인 필요] 시범 예산."</div>
+          </div>
+        </div>
+        <div class="mock__input"><span class="mock__ph">메시지 입력…</span><span class="mock__send" aria-hidden="true">↑</span></div>
+      </div>
+      <p class="mock__cap">↑ '깊게'와 '넓게'를 따로 돌려 섞이지 않게 한 뒤, '복기'에서 둘을 나란히 놓고 결론을 냅니다.</p>
+
+      <p style="color:var(--sub);font-size:var(--fs-sm);margin:var(--sp-4) 0 var(--sp-3);">아래 1·2·3 프롬프트를 순서대로 복사해 쓰면 됩니다.</p>
 
       <h3>1수 · 깊게 (한 길을 바닥까지)</h3>
+      <p class="stepnote">한 방향으로만 깊이 팝니다. 스스로 비판하고 두 번 더 다듬어 답을 한 단계 위로 올립니다.</p>
       <div class="copy-wrap">
         <button class="btn btn--ghost copy-btn" data-target="#p-deep" style="margin-bottom:var(--sp-2);">복사하기</button>
 <pre id="p-deep">당신은 아래 주제를 한 방향으로 바닥까지 파고드는 역할입니다. 넓게 펼치지 마세요.
 1) 보통 답을 일단 냅니다. 2) 스스로 비판합니다(약한 근거·헐거운 논리·뻔한 곳).
 3) 매 단계 자문: ①대충 넘기고 싶은가(그렇다면 반드시 한다) ②진짜 만족하나(어디서 타협했나) ③회피한 게 있나(그게 핵심).
-4) 비판을 반영해 두 번 더 다듬습니다(84점→92점 목표). 5) 남들이 못 본 '숨은 핵심 한 가지'를 찾습니다.
+4) 비판을 반영해 두 번 더 다듬습니다(처음 답보다 확실히 단단해지도록). 5) 남들이 못 본 '숨은 핵심 한 가지'를 찾습니다.
 정리: 핵심 결론(한 줄)/근거(3)/숨은 핵심(1)/불확실(1~2)
 주제: [여기에 적으세요]</pre>
       </div>
 
       <h3>2수 · 넓게 (판 전체 둘러보기)</h3>
+      <p class="stepnote">이번엔 깊이 파지 말고 옆으로 넓힙니다. 한쪽으로 치우치지 않았는지 점검하는 단계예요.</p>
       <div class="copy-wrap">
         <button class="btn btn--ghost copy-btn" data-target="#p-wide" style="margin-bottom:var(--sp-2);">복사하기</button>
 <pre id="p-wide">당신은 아래 주제를 넓게 둘러보는 역할입니다. 깊이 파기보다 주변을 폭넓게 훑으세요. (앞 '깊게' 답은 참고하지 마세요.)
@@ -141,43 +228,53 @@
       </div>
 
       <h3>3수 · 복기 (두 답을 견줘 판정)</h3>
+      <p class="stepnote">깊게·넓게 두 답을 나란히 놓고, <b>서로 베꼈는지 · 합쳐도 놓친 건 없는지 · 부딪히는지 · 합치면 더 나은지</b>를 따져 결론을 냅니다. (새로 찾지는 않아요.)</p>
       <div class="copy-wrap">
         <button class="btn btn--ghost copy-btn" data-target="#p-review" style="margin-bottom:var(--sp-2);">복사하기</button>
 <pre id="p-review">아래 '깊게 본 답'과 '넓게 본 답'을 나란히 놓고 복기해 주세요. 새로 찾지는 마세요.
 먼저 두 답의 숨은 전제를 각각 적고 서로 반박 가능한지 봅니다.
-그다음 0~10점 채점: 재발명(서로 베꼈나)/빈틈(합쳐도 놓친 것)/모순(서로 충돌)/시너지(합치면 새 통찰)
+그다음 네 가지를 따져 봅니다: 서로 베꼈나 / 합쳐도 놓친 게 있나 / 서로 충돌하나 / 합치면 새 통찰이 생기나.
 정리: 종합 결론(한 줄)/이유(3)/직접 확인 필요([확인 필요])/한 줄 권고(결정은 제가 합니다)
 [깊게 본 답 붙여넣기]
 [넓게 본 답 붙여넣기]</pre>
       </div>
+
+      <!-- 정석 Before/After -->
+      <p class="stepnote" style="margin-top:var(--sp-5);">정석을 거치면 결론이 이렇게 단단해져요 <span class="mock__muted">(설명용 예시)</span></p>
+      <div class="tri">
+        <div><div class="h" style="color:var(--sub);"><span class="glyph">1</span> 깊게가 본 것</div><div class="b">제작비 회수 2년+, 기존 과정과 30% 중복 — 신규 제작은 부담</div></div>
+        <div><div class="h" style="color:var(--sub);"><span class="glyph">2</span> 넓게가 본 것</div><div class="b">제휴·리뉴얼·외부 플랫폼 등 '직접 제작' 말고도 길이 여럿</div></div>
+        <div style="border-color:var(--primary);background:var(--primary-soft);"><div class="h" style="color:var(--primary-deep);"><span class="glyph">3</span> 복기 결론</div><div class="b">리뉴얼 + 외부 1곳 시범 제휴가 비용·위험 최소. [확인 필요] 예산</div></div>
+      </div>
+      <p style="color:var(--sub);font-size:var(--fs-sm);margin:0;">→ '만들자 / 말자'의 이분법이 아니라, <b>제3의 길</b>이 보입니다. 이게 깊게와 넓게를 따로 돌려 복기로 합친 효과예요.</p>
     </section>
 
     <!-- 끝판왕 -->
     <section class="reveal" style="padding-top:0;">
       <h2 class="section-title">③ 끝판왕 — 정말 큰 결정일 때</h2>
-      <p style="margin:0 0 var(--sp-2);">정석의 '깊게'를 <b>9수</b>로 더 깊이 둡니다(전략·큰 의사결정용):</p>
+      <p style="margin:0 0 var(--sp-2);">정석의 '깊게'를 <b>9수</b>로 더 깊이 둡니다. 전략·큰 의사결정처럼 '틀리면 크게 곤란한' 판에서 쓰세요. 각 수가 무슨 뜻인지 풀면 이렇습니다:</p>
       <div class="fsteps" role="img" aria-label="끝판왕 깊게 9수 흐름">
-        <div class="fstep"><span class="fnum">1</span> 첫 수 — 보통 답을 일단 낸다</div>
+        <div class="fstep"><span class="fnum">1</span> 첫 수 — 일단 무난한 답을 낸다</div>
         <div class="fstep"><span class="fnum">2</span> 거울 던지기 — 그 답을 스스로 비판</div>
-        <div class="fstep"><span class="fnum">3</span> 자가진단 3문 — 대충? 진짜 만족? 회피?</div>
-        <div class="fstep"><span class="fnum">4</span> 두 번 다듬기 — 84점 → 92점</div>
-        <div class="fstep"><span class="fnum">5</span> 사활 판단 — 살았나(쓸 만한가) 죽었나</div>
-        <div class="fstep is-key"><span class="fnum">6</span> 숨은 묘수 찾기 — 이세돌 78수 (평범 ↔ 명국의 갈림)</div>
-        <div class="fstep"><span class="fnum">7</span> 제3자의 눈 — 심판처럼 판 전체 보기</div>
-        <div class="fstep"><span class="fnum">8</span> 고수라면 — 이 분야 고수의 한 수 보태기</div>
-        <div class="fstep"><span class="fnum">9</span> 착지 — 아래 형식으로 정리</div>
+        <div class="fstep"><span class="fnum">3</span> 자가진단 3문 — 대충 넘겼나? 진짜 만족? 피한 곳은?</div>
+        <div class="fstep"><span class="fnum">4</span> 두 번 다듬기 — 답을 두 번 더 손봐 한 단계 위로</div>
+        <div class="fstep"><span class="fnum">5</span> 사활 판단 — 이 답이 정말 쓸 만한가</div>
+        <div class="fstep is-key"><span class="fnum">6</span> 숨은 묘수 찾기 — 이세돌 78수처럼, 남들이 못 본 한 수</div>
+        <div class="fstep"><span class="fnum">7</span> 제3자의 눈 — 심판처럼 판 전체 내려다보기</div>
+        <div class="fstep"><span class="fnum">8</span> 고수라면 — 이 분야 고수의 한 수를 보태기</div>
+        <div class="fstep"><span class="fnum">9</span> 착지 — 정해진 형식으로 정리</div>
       </div>
-      <p style="color:var(--sub);font-size:var(--fs-sm);margin:0 0 var(--sp-4);">여기에 더해 <b>입회인 채점</b>(새 대화로 재채점) + <b>외부 복기</b>(다른 AI·사람에게 재확인)까지 하면 끝판왕입니다.<br><i>"신의 한수는 두는 자가 못 알아본다. 다음 날 다른 기사가 알아본다."</i></p>
+      <p style="color:var(--sub);font-size:var(--fs-sm);margin:0 0 var(--sp-4);">여기에 더해, 점수를 <b>새 대화로 갈아 다시 매기고</b>(자기편들기 차단) <b>다른 AI·사람에게 한 번 더 보여</b>(외부 복기) 확인하면 끝판왕입니다.<br><i>"신의 한수는 두는 자가 못 알아본다. 다음 날 다른 기사가 복기에서 알아본다."</i></p>
 
       <h3>끝판왕 · 깊게 9수 프롬프트</h3>
       <div class="copy-wrap">
         <button class="btn btn--primary copy-btn" data-target="#p-final" style="margin-bottom:var(--sp-2);">복사하기</button>
 <pre id="p-final">당신은 아래 주제를 한 방향으로 바닥까지 두는 '깊게 9수'를 진행합니다.
 
-1) 첫 수: 보통 수준의 답을 냅니다(스스로 55점이라 보고 시작).
+1) 첫 수: 보통 수준의 답을 냅니다(아직 다듬기 전이라 보고 시작).
 2) 거울 던지기: 그 답을 비판합니다 — 근거 약한 곳, 논리 헐거운 곳, 뻔한 곳.
 3) 자가진단 3문(매 수마다): ①대충 넘기고 싶은가(그럼 반드시 둔다) ②진짜 만족하나(어디서 타협했나) ③회피한 게 있나(그게 핵심).
-4) 두 번 다듬기: 비판을 반영해 84점→92점으로 2회 다듬습니다.
+4) 두 번 다듬기: 비판을 반영해 두 번 더 다듬어 답을 확실히 단단하게 만듭니다.
 5) 사활 판단: 이 답이 쓸 만한지(살았는지) 냉정히 가릅니다.
 6) 숨은 묘수(78수): 남들과 방금의 내가 못 본 핵심 한 수를 일부러 찾습니다.
 7) 제3자의 눈: 심판의 시선으로 판 전체를 내려다봅니다.
@@ -209,6 +306,14 @@
         <summary style="font-weight:600;cursor:pointer;">정석에서 '새 대화'로 하라는 이유가 뭔가요?</summary>
         <p style="color:var(--sub);margin:8px 0 0;">같은 대화에서 계속하면 AI가 앞 답을 두둔하기 쉬워요. 새 대화로 갈면 '자기편들기'가 줄어 더 냉정하게 봅니다.</p>
       </details>
+      <details style="border:1px solid var(--line);border-radius:var(--r-md);padding:var(--sp-3) var(--sp-4);margin-bottom:8px;">
+        <summary style="font-weight:600;cursor:pointer;">'78수'가 뭔가요?</summary>
+        <p style="color:var(--sub);margin:8px 0 0;">2016년 이세돌 9단이 알파고에게 둔 유명한 한 수예요. 아무도 예상 못 한 묘수였죠. 여기선 '남들도 방금의 나도 못 본 핵심 한 가지를 일부러 찾아보자'는 뜻으로 씁니다.</p>
+      </details>
+      <details style="border:1px solid var(--line);border-radius:var(--r-md);padding:var(--sp-3) var(--sp-4);margin-bottom:8px;">
+        <summary style="font-weight:600;cursor:pointer;">점수(단계)는 꼭 봐야 하나요?</summary>
+        <p style="color:var(--sub);margin:8px 0 0;">아니요. 점수는 AI가 '대충 안 넘기고 한 번 더 다듬게' 만드는 장치일 뿐이에요. 화면엔 결론·근거·확인할 곳만 나오니 그걸 보시면 됩니다.</p>
+      </details>
       <details style="border:1px solid var(--line);border-radius:var(--r-md);padding:var(--sp-3) var(--sp-4);">
         <summary style="font-weight:600;cursor:pointer;">Gemini 말고 다른 AI도 되나요?</summary>
         <p style="color:var(--sub);margin:8px 0 0;">됩니다. 복기 방식 자체는 도구를 가리지 않아요. 프롬프트를 그대로 다른 AI에 붙여 써도 작동합니다.</p>
@@ -233,7 +338,7 @@
       이 페이지는 사내 Time AX Hub 자료를 모아 설명한 개인 페이지(AI교육사업실+김영웅)입니다.<br>
       회사 공식 사이트가 아니며(unofficial), 회사 기밀은 포함하지 않습니다.
     </p>
-    <p class="gov">문의는 사내 채널로 부탁드립니다. · 최종 업데이트: 2026-06-21</p>
+    <p class="gov">문의는 사내 채널로 부탁드립니다. · 최종 업데이트: 2026-06-22 (v2.0)</p>
     <p class="gov"><a href="../index.html">↩ 홈으로</a></p>
   </div>
 </footer>
