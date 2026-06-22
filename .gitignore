@@ -3,6 +3,7 @@
 Thumbs.db
 _*
 01_사례_초안/
-# 마크다운 원본은 README만 허용
+# 마크다운 원본은 README + 공개 다운로드만 허용
 *.md
 !README.md
+!downloads/*.md
