@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>이지설명 — 어려운 AI 답을 쉽게·예시로 | 김영웅(AI교육사업실)</title>
+<meta name="description" content="AI가 어렵게 답할 때 '이지설명' 한마디면 쉬운 말·비유·구체적 예시로 풀고, 다음 질문거리까지 줘 대화를 이어가게 하는 Gemini 도구.">
+<link rel="icon" href="../assets/img/logo-wordmark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/style.css">
+<style>
+/* 이 페이지 전용 — Gemini 채팅 화면 목업 (스크린샷 대용) */
+.mock{border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh-md);max-width:560px;margin-top:10px;background:var(--bg);}
+.mock__bar{background:var(--surface);border-bottom:1px solid var(--line);padding:9px 14px;display:flex;align-items:center;gap:8px;}
+.mock__dot{width:22px;height:22px;border-radius:50%;background:linear-gradient(135deg,#2563EB,#7C3AED);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:12px;flex:none;}
+.mock__body{padding:14px;display:flex;flex-direction:column;gap:11px;}
+.mock__row{display:flex;gap:8px;align-items:flex-start;}
+.mock__row--me{justify-content:flex-end;}
+.mock__av{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#2563EB,#7C3AED);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:12px;flex:none;}
+.mock__ai{background:var(--surface);border:1px solid var(--line);border-radius:4px 14px 14px 14px;padding:10px 12px;font-size:13px;line-height:1.6;max-width:86%;color:var(--ink);}
+.mock__me{background:var(--primary-soft);border:1px solid #C7DBFB;border-radius:14px 4px 14px 14px;padding:10px 12px;font-size:13px;line-height:1.55;max-width:82%;color:var(--ink);}
+.mock__who{display:block;font-size:11px;font-weight:700;margin-bottom:3px;letter-spacing:.02em;}
+.mock__who--me{color:var(--primary-deep);text-align:right;}
+.mock__who--ai{color:var(--secondary);}
+.mock__input{background:var(--surface);border-top:1px solid var(--line);padding:10px 14px;display:flex;align-items:center;gap:8px;}
+.mock__ph{flex:1;color:var(--sub);font-size:var(--fs-sm);}
+.mock__send{width:28px;height:28px;border-radius:50%;background:var(--primary);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:14px;flex:none;}
+.mock__cap{font-size:var(--fs-xs);color:var(--sub);margin-top:6px;}
+.mock__muted{color:var(--sub);}
+.mock__kw{display:inline-block;font-weight:800;color:var(--primary-deep);background:#fff;border:1px solid #C7DBFB;border-radius:6px;padding:1px 8px;}
+/* 5토막 출력 라벨 */
+.five{list-style:none;padding:0;margin:6px 0 0;}
+.five li{margin:0 0 5px;}
+.five .lab{display:inline-block;min-width:74px;font-weight:700;color:var(--secondary);font-size:12px;}
+.hard{background:var(--surface);border:1px dashed var(--line);border-radius:var(--r-md);padding:var(--sp-4);font-size:13.5px;color:var(--ink);line-height:1.6;}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="container" style="display:flex;align-items:center;justify-content:space-between;width:100%;">
+    <a class="is-button" href="../index.html" aria-label="자료 허브 홈">◆ 김영웅(AI교육사업실)</a>
+    <nav>
+      <button class="nav__toggle" aria-label="메뉴 열기" aria-expanded="false" aria-controls="navMenu">☰</button>
+      <div class="nav__menu" id="navMenu">
+        <a href="../index.html#tools">도구</a>
+        <a href="../guide.html">가이드</a>
+        <a href="../about.html">소개</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="reading">
+
+    <nav class="crumb reveal" style="font-size:var(--fs-sm);color:var(--sub);padding-block:var(--sp-4);">
+      <a href="../index.html">홈</a> <span aria-hidden="true">›</span>
+      <a href="../index.html#tools">도구</a> <span aria-hidden="true">›</span>
+      <b style="color:var(--ink);">이지설명</b>
+    </nav>
+
+    <!-- 요약 + 흐름 -->
+    <section class="reveal" style="padding-top:0;">
+      <span class="badge badge--primary"><span class="badge__icon">◆</span>이해 돕기 · 완성 · v2.0</span>
+      <h1 class="display" style="margin-top:12px;">이지설명</h1>
+      <p style="color:var(--sub);font-size:var(--fs-h3);margin:0 0 var(--sp-5);">AI 답이 어려워서 '그래서 무슨 말이지?' 한 적 있죠. 어려운 답에 <b>"이지설명"</b> 한마디면, 쉬운 말·비유·예시로 풀고 다음 질문거리까지 줍니다.</p>
+
+      <div class="flow" role="img" aria-label="어려운 AI 답을 이지설명으로 쉬운 설명과 예시로 바꾸는 흐름">
+        <div class="cell"><span class="glyph">✗</span><b>어려운 AI 답</b><span style="color:var(--sub);font-size:var(--fs-xs);">용어·압축이 많음</span></div>
+        <span class="arrow" aria-hidden="true">→</span>
+        <div class="cell cell--tool"><span class="glyph">◆</span><b>"이지설명"</b><span style="color:var(--sub);font-size:var(--fs-xs);">한마디만</span></div>
+        <span class="arrow" aria-hidden="true">→</span>
+        <div class="cell"><span class="glyph">✓</span><b>쉬운 말 + 예시</b><span style="color:var(--sub);font-size:var(--fs-xs);">다음 질문거리까지</span></div>
+      </div>
+    </section>
+
+    <!-- 진짜 달라지나? Before/After -->
+    <section class="reveal" style="padding-top:0;">
+      <h2 class="section-title">진짜 달라지나요? (맛보기)</h2>
+      <p style="color:var(--sub);margin:0 0 var(--sp-3);">어려운 AI 답이 어떻게 풀리는지 먼저 보세요. <span class="mock__muted">(설명용 예시)</span></p>
+
+      <div class="ba-before" style="background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:var(--sp-4);margin-bottom:var(--sp-2);">
+        <span class="ba-tag badge"><span class="glyph">✗</span> 어려운 AI 답</span>
+        <div class="hard" style="margin-top:8px;border:0;padding:0;background:none;">RAG는 검색 증강 생성(Retrieval-Augmented Generation)으로, 외부 지식 베이스를 벡터로 임베딩해 질의와 유사한 청크를 검색하고 이를 LLM 컨텍스트에 주입하는 아키텍처입니다.</div>
+      </div>
+      <p style="text-align:center;color:var(--sub);margin:0 0 var(--sp-2);" aria-hidden="true">↓ "이지설명"</p>
+      <div class="ba-after" style="background:var(--primary-soft);border:1px solid var(--line);border-radius:var(--r-md);padding:var(--sp-4);margin-bottom:var(--sp-3);">
+        <span class="ba-tag badge"><span class="glyph">✓</span> 이지설명</span>
+        <ul class="five" style="margin-top:8px;">
+          <li><span class="lab">한 줄로</span> AI가 답하기 전에 '관련 자료를 먼저 찾아보고' 답하게 하는 방법이에요.</li>
+          <li><span class="lab">쉽게 풀면</span> 보통 AI는 외운 것만으로 답해요. RAG는 답하기 전에 우리 자료를 검색하게 합니다. 그래서 더 정확하고 최신이에요.</li>
+          <li><span class="lab">비유로</span> 오픈북 시험 같은 거예요. 외워서 답하는 대신, 책을 펴놓고 찾아보며 답하는 거죠.</li>
+          <li><span class="lab">예를 들면</span> 사내 규정 챗봇에 "연차 며칠?"이라고 물으면, AI가 규정 문서를 먼저 찾은 뒤 그 내용으로 답해요.</li>
+          <li><span class="lab">다음 질문거리</span> "우리 부서 문서로 이런 챗봇을 만들려면 뭐가 필요해?"</li>
+        </ul>
+      </div>
+      <p style="color:var(--sub);font-size:var(--fs-sm);margin:0;">→ '정확하지만 어려운' 답을 '쉽지만 핵심은 지킨' 답으로 번역해 줘요. 마지막 <b>다음 질문거리</b>를 그대로 던지면 대화가 자연스럽게 이어집니다.</p>
+    </section>
+
+    <!-- 바로 쓰기 -->
+    <section class="reveal" style="padding-top:0;">
+      <h2 class="section-title">바로 쓰기</h2>
+      <p style="margin:0 0 var(--sp-3);">두 가지로 쓸 수 있어요. 아래 회색 상자(=Gemini에게 줄 <b>지시문</b>)를 한 번 복사해 두면 됩니다.</p>
+      <div class="copy-wrap">
+        <div style="display:flex;gap:var(--sp-3);align-items:center;flex-wrap:wrap;margin-bottom:var(--sp-2);">
+          <button class="btn btn--primary copy-btn" data-target="#prompt-pre">① 복사하기</button>
+          <a class="btn btn--ghost" href="https://gemini.google.com/app" target="_blank" rel="noopener">② Gemini 새 창 열기 ↗</a>
+          <span class="copy-fallback" hidden style="color:var(--danger);font-size:var(--fs-sm);">자동 복사가 안 되면 아래 상자를 직접 드래그해 복사하세요.</span>
+        </div>
+<pre id="prompt-pre">역할: 당신은 어려운 설명을 누구나 알아듣게 풀어주는 '이지설명' 도우미입니다. 사용자가 어려운 답·개념·전문용어를 붙여넣거나 "이지설명"이라고 하면, 바로 그 내용을 아래 형식으로 쉽게 다시 설명합니다.
+
+[출력 형식]
+1. 한 줄로: 중학생도 이해할 한 문장으로 핵심만.
+2. 쉽게 풀면: 전문용어를 일상어로 바꿔 짧은 문장 2~3개로.
+3. 비유로: 일상에서 흔히 겪는 것에 빗대 한 가지.
+4. 예를 들면: 실제 상황 예시 1~2개. ("예를 들어 ~"로 시작)
+5. 다음 질문거리: 더 알고 싶을 때 그대로 물어보면 좋은 질문 한 줄.
+
+[규칙]
+- 전문용어가 나오면 반드시 쉬운 말로 풀거나 괄호로 뜻을 답니다. 예) "API(프로그램끼리 주고받는 통로)".
+- 한 문장에 한 가지만. 짧고 한 호흡에 읽히게 씁니다.
+- 원래 내용에 없는 사실·숫자는 지어내지 않습니다. 모르거나 불확실하면 "이건 확인이 필요해요"라고 솔직히 말합니다.
+- 쉽게 한다고 틀리게 만들지 않습니다. 군더더기는 빼되 핵심은 지킵니다.
+- 이미 충분히 쉬운 내용이면 굳이 늘리지 말고 짧게 끝냅니다.
+- 사용자가 "더 쉽게"라고 하면 비유를 더 일상적인 것으로 바꿔 한 번 더 풀어 줍니다.
+
+이제 사용자가 어려운 내용을 주거나 "이지설명"이라고 하면, 바로 위 형식으로 쉽게 풀어 주세요.</pre>
+      </div>
+    </section>
+
+    <!-- 두 가지 쓰는 법 + 목업 -->
+    <section class="reveal" style="padding-top:0;">
+      <h2 class="section-title">두 가지로 쓰는 법</h2>
+
+      <h3><span class="glyph">○</span> 방법 1 — 어려운 답을 받은 그 자리에서</h3>
+      <p style="color:var(--sub);margin:0 0 var(--sp-3);">위 지시문을 한 번 보낸 뒤, AI가 어렵게 답할 때마다 <b class="mock__muted" style="color:var(--primary-deep);">"이지설명"</b> 한 단어만 보내면 방금 답을 쉽게 풀어 줍니다.</p>
+
+      <div class="mock" role="img" aria-label="예시 화면: 어려운 답을 받은 뒤 '이지설명'이라고 하자 쉬운 말과 예시로 풀어준 모습">
+        <div class="mock__bar"><span class="mock__dot">✦</span><b style="font-size:var(--fs-sm);">Gemini</b><span class="mock__muted" style="font-size:var(--fs-xs);">· 새 대화</span></div>
+        <div class="mock__body">
+          <div class="mock__row mock__row--me">
+            <div class="mock__me"><span class="mock__who mock__who--me">나</span>토큰이 뭐야?</div>
+          </div>
+          <div class="mock__row">
+            <span class="mock__av">✦</span>
+            <div class="mock__ai"><span class="mock__who mock__who--ai">Gemini</span>토큰은 언어 모델이 텍스트를 처리하는 최소 단위로, 단어나 부분 단어를 정수 ID로 매핑한 시퀀스 요소입니다.</div>
+          </div>
+          <div class="mock__row mock__row--me">
+            <div class="mock__me"><span class="mock__who mock__who--me">나</span><span class="mock__kw">이지설명</span></div>
+          </div>
+          <div class="mock__row">
+            <span class="mock__av">✦</span>
+            <div class="mock__ai"><span class="mock__who mock__who--ai">Gemini</span>
+              <ul class="five">
+                <li><span class="lab">한 줄로</span> AI가 글을 읽을 때 잘게 쪼개는 '글자 조각'이에요.</li>
+                <li><span class="lab">비유로</span> 레고 블록 같은 거예요. 문장을 블록 단위로 나눠서 다룬다고 보면 돼요.</li>
+                <li><span class="lab">예를 들면</span> "안녕하세요"가 한 덩어리가 아니라 두세 조각으로 나뉘어 처리돼요.</li>
+                <li><span class="lab">다음 질문거리</span> "토큰이 많으면 비용이 왜 올라가?"</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="mock__input"><span class="mock__ph">메시지 입력…</span><span class="mock__send" aria-hidden="true">↑</span></div>
+      </div>
+      <p class="mock__cap">↑ 같은 대화 안에서 <b>"이지설명"</b>만 치면 바로 앞 답을 풀어 줘요.</p>
+
+      <h3 style="margin-top:var(--sp-6);"><span class="glyph">◎</span> 방법 2 — 어려운 글·개념을 붙여넣기</h3>
+      <p style="color:var(--sub);margin:0;">다른 데서 본 어려운 문장·전문용어를 그대로 붙여넣고 <b>"이지설명"</b>이라고 해도 똑같이 풀어 줍니다. 보고서·기사·매뉴얼의 한 단락도 좋아요.</p>
+    </section>
+
+    <!-- 무엇을 주나 -->
+    <section class="reveal" style="padding-top:0;">
+      <h2 class="section-title">무엇을 주나요 (5토막)</h2>
+      <table class="responsive" style="width:100%;border-collapse:collapse;margin-bottom:var(--sp-4);">
+        <tbody>
+          <tr><td data-label="토막" style="padding:8px;border-bottom:1px solid var(--line);"><b>① 한 줄로</b></td><td data-label="설명" style="padding:8px;border-bottom:1px solid var(--line);">중학생도 알 한 문장</td></tr>
+          <tr><td data-label="토막" style="padding:8px;border-bottom:1px solid var(--line);"><b>② 쉽게 풀면</b></td><td data-label="설명" style="padding:8px;border-bottom:1px solid var(--line);">전문용어를 일상어로, 짧은 문장 2~3개</td></tr>
+          <tr><td data-label="토막" style="padding:8px;border-bottom:1px solid var(--line);"><b>③ 비유로</b></td><td data-label="설명" style="padding:8px;border-bottom:1px solid var(--line);">일상에서 흔한 것에 빗대 한 가지</td></tr>
+          <tr><td data-label="토막" style="padding:8px;border-bottom:1px solid var(--line);"><b>④ 예를 들면</b></td><td data-label="설명" style="padding:8px;border-bottom:1px solid var(--line);">실제 상황 예시 1~2개</td></tr>
+          <tr><td data-label="토막" style="padding:8px;border-bottom:1px solid var(--line);"><b>⑤ 다음 질문거리</b></td><td data-label="설명" style="padding:8px;border-bottom:1px solid var(--line);">대화를 이어갈 질문 한 줄</td></tr>
+        </tbody>
+      </table>
+      <div style="background:var(--success-soft);color:var(--success-ink);border-radius:var(--r-md);padding:var(--sp-4);">
+        <b><span class="glyph">✓</span> 이 도구의 핵심</b> — 쉽게 만든다고 <b>틀리게 만들지 않습니다.</b> 군더더기는 빼되 핵심은 지키고, 원래 답에 없던 사실·숫자는 지어내지 않아요(모르면 "이건 확인이 필요해요"라고 솔직히 말합니다).
+      </div>
+    </section>
+
+    <!-- 안전 -->
+    <section class="reveal" style="padding-top:0;">
+      <div style="background:var(--warn-soft);color:var(--warn-ink);border-radius:var(--r-md);padding:var(--sp-4);">
+        <b><span class="glyph">▲</span> 꼭 기억하세요</b> — 쉬운 설명은 '이해를 돕는 번역'이에요. 중요한 결정의 근거로 쓸 땐 원래 정확한 설명도 한 번 같이 확인하세요. 기밀·개인정보가 든 내용은 넣기 전에 한 번 더 생각하고요.
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="reveal" style="padding-top:0;">
+      <h2 class="section-title">자주 묻는 질문</h2>
+      <details style="border:1px solid var(--line);border-radius:var(--r-md);padding:var(--sp-3) var(--sp-4);margin-bottom:8px;">
+        <summary style="font-weight:600;cursor:pointer;">"이지설명"이라고만 하면 뭘 푸나요?</summary>
+        <p style="color:var(--sub);margin:8px 0 0;">바로 앞에 AI가 한 답을 풀어 줍니다. 특정 부분만 원하면 "그 중에 ○○만 이지설명"처럼 콕 집어 말해도 돼요.</p>
+      </details>
+      <details style="border:1px solid var(--line);border-radius:var(--r-md);padding:var(--sp-3) var(--sp-4);margin-bottom:8px;">
+        <summary style="font-weight:600;cursor:pointer;">그래도 어려우면요?</summary>
+        <p style="color:var(--sub);margin:8px 0 0;">"더 쉽게"라고 하면 비유를 더 일상적인 것으로 바꿔 한 번 더 풀어 줍니다.</p>
+      </details>
+      <details style="border:1px solid var(--line);border-radius:var(--r-md);padding:var(--sp-3) var(--sp-4);margin-bottom:8px;">
+        <summary style="font-weight:600;cursor:pointer;">쉽게 만들다 틀리게 바뀌진 않나요?</summary>
+        <p style="color:var(--sub);margin:8px 0 0;">군더더기만 빼고 핵심은 지키도록 했어요. 원래 답에 없던 사실·숫자는 지어내지 않고, 불확실하면 "확인이 필요해요"라고 말합니다. 그래도 중요한 건 원문도 한 번 보세요.</p>
+      </details>
+      <details style="border:1px solid var(--line);border-radius:var(--r-md);padding:var(--sp-3) var(--sp-4);">
+        <summary style="font-weight:600;cursor:pointer;">매번 지시문 붙여넣기 귀찮아요</summary>
+        <p style="color:var(--sub);margin:8px 0 0;">Gemini의 'Gem(=자주 쓰는 챗봇을 저장해두는 기능)'으로 만들어 두면, 다음부터는 어려운 내용에 "이지설명"만 치면 됩니다.</p>
+      </details>
+    </section>
+
+    <!-- 다른 도구 -->
+    <section class="reveal" style="padding-top:0;">
+      <h2 class="section-title">다른 도구</h2>
+      <table class="responsive" style="width:100%;border-collapse:collapse;">
+        <tbody>
+          <tr><td data-label="도구" style="padding:10px;border-bottom:1px solid var(--line);"><a href="cliche-eraser.html">AI 클리셰 지우개</a></td><td data-label="상태" style="padding:10px;border-bottom:1px solid var(--line);"><span class="badge badge--success"><span class="badge__icon">●</span>완성</span></td></tr>
+          <tr><td data-label="도구" style="padding:10px;border-bottom:1px solid var(--line);"><a href="meeting-notes.html">회의록 정리기</a></td><td data-label="상태" style="padding:10px;border-bottom:1px solid var(--line);"><span class="badge badge--success"><span class="badge__icon">●</span>완성</span></td></tr>
+          <tr><td data-label="도구" style="padding:10px;border-bottom:1px solid var(--line);"><a href="baduk-review.html">바둑 복기</a></td><td data-label="상태" style="padding:10px;border-bottom:1px solid var(--line);"><span class="badge badge--success"><span class="badge__icon">●</span>완성</span></td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:var(--sp-4);"><a href="../index.html#tools">← 도구 모음으로 돌아가기</a></p>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <p><b>◆ 김영웅(AI교육사업실)</b></p>
+    <p class="gov">도구: AI 클리셰 지우개 · 이지설명 · 회의록 정리기 · 바둑 복기</p>
+    <p class="gov">
+      이 페이지는 사내 Time AX Hub 자료를 모아 설명한 개인 페이지(AI교육사업실+김영웅)입니다.<br>
+      회사 공식 사이트가 아니며(unofficial), 회사 기밀은 포함하지 않습니다.
+    </p>
+    <p class="gov">문의는 사내 채널로 부탁드립니다. · 최종 업데이트: 2026-06-22 (v2.0)</p>
+    <p class="gov"><a href="../index.html">↩ 홈으로</a></p>
+  </div>
+</footer>
+
+<script src="../assets/js/main.js"></script>
+</body>
+</html>
