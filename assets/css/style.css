@@ -163,7 +163,7 @@ a:hover { color: var(--primary); }
 
 /* [A] 컨테이너 래퍼 + 가로 스크롤 봉인 */
 .container { width:100%; max-width:var(--container); margin-inline:auto; padding-inline:20px; }
-.reading   { width:100%; max-width:var(--reading);   margin-inline:auto; padding-inline:20px; }
+.reading   { width:100%; max-width:var(--reading);   margin-inline:auto; padding:16px 28px 40px; margin-block:24px; background:var(--surface); border:1px solid var(--line); border-radius:var(--r-lg); box-shadow:var(--sh-sm); }
 html, body { overflow-x:hidden; }
 img, svg, video, table { max-width:100%; }
 
